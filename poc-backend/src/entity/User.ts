@@ -1,18 +1,37 @@
-import {Entity, ObjectIdColumn, ObjectID, Column} from "typeorm";
+import { Entity, BaseEntity, ObjectID, Column, ObjectIdColumn } from 'typeorm'
 
+import { ObjectType, Field, ID } from 'type-graphql'
+import { EncryptionTransformer } from 'typeorm-encrypted'
+@ObjectType()
 @Entity()
-export class User {
+export class User extends BaseEntity {
+  @Field(() => ID)
+  @ObjectIdColumn()
+  _id: ObjectID
+  @Field(() => String)
+  @Column()
+  firstname: string
 
-    @ObjectIdColumn()
-    id: ObjectID;
+  @Field(() => String)
+  @Column()
+  lastname: string
 
-    @Column()
-    firstName: string;
+  @Field(() => String)
+  @Column()
+  email: string
 
-    @Column()
-    lastName: string;
+  @Field(() => Number)
+  @Column()
+  age: number
 
-    @Column()
-    age: number;
-
+  @Field(() => String)
+  @Column({
+    transformer: new EncryptionTransformer({
+      key: 'secret',
+      algorithm: 'aes-256-cbc',
+      ivLength: 16,
+      iv: 'ff5ac19190424b1d88f9419ef949ae56',
+    }),
+  })
+  password: string
 }
