@@ -21,6 +21,6 @@
     "typeorm-encrypted": "0.5.4"
   },
   "scripts": {
-    "start": "nodemon  --ext ts --exec ts-node src/index.ts"
+    "dev": "nodemon  --ext ts --exec ts-node src/index.ts"
   }
 }
