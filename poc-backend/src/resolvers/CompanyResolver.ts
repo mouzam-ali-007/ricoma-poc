@@ -22,8 +22,10 @@ export class CompanyResolver {
         return await Company.find()
     }
 
+    /* 
+        Login With Company Email and Password
+    */
     @Mutation(() => Company)
-
     async login(@Arg("email") email: string, @Arg("password") password: string) {
         const company = await Company.findOne({ where: { email } });
         if (!company) {
@@ -33,7 +35,7 @@ export class CompanyResolver {
         const verify = await compare(password, company.password);
 
         if (!verify) {
-            throw new Error("Bad password");
+            throw new Error("Incorrect password");
         }
 
         const accessToken = sign({ companyId: company._id }, "MySecretKey", {
@@ -45,8 +47,16 @@ export class CompanyResolver {
             accessToken
         };
     }
+    /* 
+        Register New Company
+    */
     @Mutation(() => Company)
     async registerCompany(@Arg('data') data: CompanyType) {
+
+        const isCompanyExist = await Company.findOne({ where: { email: data.email } });
+        if (isCompanyExist) {
+            throw new Error("Company Already Exists");
+        }
 
         const hashedPassword = await hash(data.password, 13);
         data.password = hashedPassword;
