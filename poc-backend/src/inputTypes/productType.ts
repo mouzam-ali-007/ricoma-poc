@@ -2,6 +2,10 @@ import { InputType, Field } from 'type-graphql'
 
 @InputType()
 export class ProductType {
+
+    @Field({ nullable: true })
+    productId: string
+
     @Field()
     name: string
 
@@ -20,10 +24,13 @@ export class ProductType {
     @Field()
     productColors: String
 
-
     @Field()
+    companyId: string
+
+
+    @Field({ nullable: true })
     createdAt: Date
 
-    @Field()
+    @Field({ nullable: true })
     updatedAt: Date
 }

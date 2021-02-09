@@ -6,6 +6,10 @@ import { CompanyType } from '../inputTypes/companyType'
 import { Company } from '../entity/Company';
 import { hash, compare } from "bcryptjs";
 import { isAuth } from "../authentication/auth";
+import {
+    SECRET_KEY, INCORRECT_PASSWORD,
+    IS_EXISTS, NOT_FOUND
+} from '../Utils/Constants';
 import { Context } from "../authentication/context";
 
 
@@ -13,7 +17,7 @@ import { Context } from "../authentication/context";
 export class CompanyResolver {
     @Query(() => [Company])
     @UseMiddleware(isAuth)
-    async compnaies() {
+    async companies() {
         return await Company.find()
     }
 
@@ -29,16 +33,16 @@ export class CompanyResolver {
     async login(@Arg("email") email: string, @Arg("password") password: string) {
         const company = await Company.findOne({ where: { email } });
         if (!company) {
-            throw new Error("Could not find company");
+            throw new Error(NOT_FOUND);
         }
 
         const verify = await compare(password, company.password);
 
         if (!verify) {
-            throw new Error("Incorrect password");
+            throw new Error(INCORRECT_PASSWORD);
         }
 
-        const accessToken = sign({ companyId: company._id }, "MySecretKey", {
+        const accessToken = sign({ companyId: company._id }, SECRET_KEY, {
             expiresIn: "1d"
         })
         console.log(email, password, company, accessToken)
@@ -55,7 +59,7 @@ export class CompanyResolver {
 
         const isCompanyExist = await Company.findOne({ where: { email: data.email } });
         if (isCompanyExist) {
-            throw new Error("Company Already Exists");
+            throw new Error(IS_EXISTS);
         }
 
         const hashedPassword = await hash(data.password, 13);

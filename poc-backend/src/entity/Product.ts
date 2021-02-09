@@ -34,6 +34,10 @@ export class Product extends BaseEntity {
     @Column()
     productColors: String;
 
+    @Field(() => String)
+    @Column()
+    companyId: string
+
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date
 
