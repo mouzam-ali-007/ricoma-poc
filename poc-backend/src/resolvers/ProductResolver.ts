@@ -5,28 +5,67 @@ import { isAuth } from "../authentication/auth";
 
 @Resolver()
 export class ProductResolver {
+    /* 
+        Fetch Product for Company
+    */
     @Query(() => [Product])
     @UseMiddleware(isAuth)
-    async products() {
-        return await Product.find()
+    async fetchProducts(@Arg("companyId") companyId: string) {
+        return await Product.find({ where: { companyId } })
     }
 
-    @Query((_id) => [Product])
-    async findProducts() {
-        console.log('Query', await Product.find())
-        return await Product.find()
-    }
-
+    /* 
+        Add Product Mutation
+    */
     @Mutation(() => Product)
     @UseMiddleware(isAuth)
 
-    async registerProduct(@Arg('data') data: ProductType) {
+    async addProduct(@Arg('data') data: ProductType) {
 
-        const company = Product.create(data)
+        const product = Product.create(data)
 
-        console.log(company)
-        await company.save()
+        console.log(product)
+        await product.save()
 
-        return company
+        return product
+    }
+
+    /* 
+        Update Product Mutation
+    */
+    @Mutation(() => Product)
+    @UseMiddleware(isAuth)
+
+    async updateProduct(@Arg("input") { name, details, image, productId }: ProductType) {
+        const product = await Product.findOne({ where: { name } })
+
+        if (product) {
+            product.name = name;
+            product.details = details;
+
+            let res = await Product.update(productId, product)
+
+            console.log(res)
+            return product
+
+        } else {
+            throw new Error("NOT FOUND");
+        }
+    }
+
+    /* 
+      Delete Product Mutation
+  */
+    @Mutation(() => Product!, { nullable: true })
+    async deleteProduct(
+        @Arg("productId") productId: string
+    ): Promise<Product | undefined | null> {
+        const allProduct = await Product
+        const product = await allProduct.findOne(productId)
+        if (product) {
+            await allProduct.delete(productId);
+            return product;
+        }
+        throw new Error("NOT FOUND");
     }
 }

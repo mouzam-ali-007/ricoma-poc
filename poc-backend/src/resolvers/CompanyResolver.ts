@@ -8,16 +8,21 @@ import {
 } from 'type-graphql'
 import { sign } from 'jsonwebtoken'
 import { CompanyType } from '../inputTypes/companyType'
-import { Company } from '../entity/Company'
-import { hash, compare } from 'bcryptjs'
-import { isAuth } from '../authentication/auth'
-import { Context } from '../authentication/context'
+import { Company } from '../entity/Company';
+import { hash, compare } from "bcryptjs";
+import { isAuth } from "../authentication/auth";
+import {
+  SECRET_KEY, INCORRECT_PASSWORD,
+  IS_EXISTS, NOT_FOUND
+} from '../Utils/Constants';
+import { Context } from "../authentication/context";
+
 
 @Resolver()
 export class CompanyResolver {
   @Query(() => [Company])
   @UseMiddleware(isAuth)
-  async getAllCompanies() {
+  async companies() {
     return await Company.find()
   }
 
@@ -30,16 +35,16 @@ export class CompanyResolver {
         Login With Company Email and Password
     */
   @Mutation(() => Company)
-  async login(@Arg('email') email: string, @Arg('password') password: string) {
-    const company: Company = await Company.findOne({ where: { email } })
+  async login(@Arg("email") email: string, @Arg("password") password: string) {
+    const company = await Company.findOne({ where: { email } });
     if (!company) {
-      throw new Error('Could not find company')
+      throw new Error(NOT_FOUND);
     }
 
-    const verify = await compare(password, company.password)
+    const verify = await compare(password, company.password);
 
     if (!verify) {
-      throw new Error('Incorrect password')
+      throw new Error(INCORRECT_PASSWORD);
     }
 
     const accessToken = sign({ companyId: company._id }, 'MySecretKey', {
@@ -48,17 +53,17 @@ export class CompanyResolver {
     console.log(email, password, company, accessToken)
     company.accessToken = accessToken
     return company
+
   }
   /* 
         Register New Company
     */
   @Mutation(() => Company)
   async registerCompany(@Arg('data') data: CompanyType) {
-    const isCompanyExist = await Company.findOne({
-      where: { email: data.email },
-    })
+
+    const isCompanyExist = await Company.findOne({ where: { email: data.email } });
     if (isCompanyExist) {
-      throw new Error('Company Already Exists')
+      throw new Error(IS_EXISTS);
     }
 
     const hashedPassword = await hash(data.password, 13)
