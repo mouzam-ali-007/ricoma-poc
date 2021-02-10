@@ -47,7 +47,7 @@ export class CompanyResolver {
       throw new Error(INCORRECT_PASSWORD);
     }
 
-    const accessToken = sign({ companyId: company._id }, 'MySecretKey', {
+    const accessToken = sign({ companyId: company._id }, SECRET_KEY, {
       expiresIn: '1d',
     })
     console.log(email, password, company, accessToken)

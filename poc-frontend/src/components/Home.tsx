@@ -78,8 +78,8 @@ export default function Home() {
         <Container className={classes.cardGrid} maxWidth='md'>
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => {
-              return <Product card={card} />
+            {cards.map((card,index) => {
+              return <Product key={index} card={card} />
             })}
           </Grid>
         </Container>
