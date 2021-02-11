@@ -1,13 +1,15 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import { Typography } from '@material-ui/core'
+import Image from '../images/HeroBackground.png'; 
+import { Typography , Card, CardMedia } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Link from '@material-ui/core/Link'
 import TopBar from './TopBar'
 import Product from './Product'
 
-function Copyright() {
+
+const Copyright = () =>{
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
@@ -21,14 +23,21 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    position: "relative",
+    padding: theme.spacing(8, 0, 6),
+  },
+  font: {
+    position: "absolute",
+    top: "20%",
+    textAlign: "center",
+    color: "black",
+  },
   icon: {
     marginRight: theme.spacing(2),
   },
   heroContent: {
-    backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
-    height: 400,
-    background: 'linear-gradient(23deg, #f5fffa 30%, #FF8E53 90%)',
   },
 
   cardGrid: {
@@ -52,29 +61,25 @@ export default function Home() {
       <TopBar />
       <main>
         {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth='sm'>
-            <Typography
-              component='h1'
-              variant='h2'
-              align='center'
-              color='textPrimary'
-              gutterBottom
-            >
-              Album layout
-            </Typography>
-            <Typography
-              variant='h5'
-              align='center'
-              color='textSecondary'
-              paragraph
-            >
-              Something short and leading about the collection below—its
-              contents, the creator, etc. Make it short and sweet, but not too
-              short so folks don&apos;t simply skip over it entirely.
-            </Typography>
-          </Container>
-        </div>
+        
+        <Card className={classes.root}>
+          <CardMedia
+            component="img"
+            alt="Contemplative Reptile"
+            height="600"
+            image={Image}
+            title="Contemplative Reptile"
+          />
+          <Typography
+            gutterBottom
+            variant="h1"
+            component="h1"
+            className={classes.font}
+          >
+            Lorem ipsum
+          </Typography>
+        </Card>
+
         <Container className={classes.cardGrid} maxWidth='md'>
           {/* End hero unit */}
           <Grid container spacing={4}>
