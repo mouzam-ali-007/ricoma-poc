@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
     height: 400,
-    backgroundImage: `url(${'https://source.unsplash.com/collection/190727'})`,
+    background: 'linear-gradient(23deg, #f5fffa 30%, #FF8E53 90%)',
   },
 
   cardGrid: {

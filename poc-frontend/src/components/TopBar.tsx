@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-
+import GetDrawerChoices from './topbar/GetDrawerChoices'
+import DisplayDesktop from './topbar/DisplayDesktop'
 import {
   makeStyles,
   Link,
@@ -16,7 +17,6 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    backgroundColor: '#400CCC',
     paddingRight: '79px',
     paddingLeft: '118px',
     '@media (max-width: 900px)': {
@@ -53,21 +53,7 @@ export default function TopBar() {
     setResponsiveness()
     window.addEventListener('resize', () => setResponsiveness())
   }, [])
-  const getDrawerChoices = () => {
-    return (
-      <Link>
-        <MenuItem>Lore ipsum</MenuItem>
-        <MenuItem>Trega</MenuItem>
-        <MenuItem>Lireda</MenuItem>
-        <MenuItem>Fohlie</MenuItem>
-        <MenuItem>Krielcw</MenuItem>
-        <MenuItem>Frllowi</MenuItem>
-        <MenuItem>
-          <ShoppingCartIcon />{' '}
-        </MenuItem>
-      </Link>
-    )
-  }
+
   const displayMobile = () => {
     const handleDrawerOpen = () =>
       setState((prevState) => ({ ...prevState, drawerOpen: true }))
@@ -91,24 +77,11 @@ export default function TopBar() {
             onClose: handleDrawerClose,
           }}
         >
-          <div style={{ padding: '20px 30px' }}>{getDrawerChoices()}</div>
+          <div style={{ padding: '10px 15px' }}>
+            <GetDrawerChoices />
+          </div>
         </Drawer>
-        <div>{}</div>
-      </Toolbar>
-    )
-  }
-  const displayDesktop = () => {
-    return (
-      <Toolbar>
-        <MenuItem>Lore ipsum</MenuItem>
-        <MenuItem>Trega</MenuItem>
-        <MenuItem>Lireda</MenuItem>
-        <MenuItem>Fohlie</MenuItem>
-        <MenuItem>Krielcw</MenuItem>
-        <MenuItem>Frllowi</MenuItem>
-        <MenuItem>
-          <ShoppingCartIcon />{' '}
-        </MenuItem>
+        <div>Elsdiyaate</div>
       </Toolbar>
     )
   }
@@ -116,8 +89,12 @@ export default function TopBar() {
   return (
     <React.Fragment>
       <header>
-        <AppBar className={classes.header}>
-          {mobileView ? displayMobile() : displayDesktop()}
+        <AppBar
+          color='transparent'
+          position='relative'
+          className={classes.header}
+        >
+          {mobileView ? displayMobile() : <DisplayDesktop />}
         </AppBar>
       </header>{' '}
     </React.Fragment>
