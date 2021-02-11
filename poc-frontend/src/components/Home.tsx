@@ -12,7 +12,7 @@ function Copyright() {
     <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
       <Link color='inherit' href='https://material-ui.com/'>
-        Your Website
+        Ricoma Poc
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -87,7 +87,7 @@ export default function Home() {
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant='h6' align='center' gutterBottom>
-          Footer
+          Ricoma Poc
         </Typography>
         <Typography
           variant='subtitle1'

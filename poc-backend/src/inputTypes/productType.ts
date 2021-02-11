@@ -1,4 +1,6 @@
 import { InputType, Field } from 'type-graphql'
+import { Size } from '../entity/Size'
+import { Color } from '../entity/Color'
 
 @InputType()
 export class ProductType {
@@ -18,11 +20,11 @@ export class ProductType {
     @Field()
     quantity: number
 
-    @Field()
-    productSizes: String
+    @Field(() => [String], { nullable: true })
+    productSize: String[]
 
-    @Field()
-    productColors: String
+    @Field(() => [String], { nullable: true })
+    productColor: string[]
 
     @Field()
     companyId: string
