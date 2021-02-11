@@ -9,7 +9,7 @@ export class ProductResolver {
         Fetch Product for Company
     */
     @Query(() => [Product])
-    @UseMiddleware(isAuth)
+    // @UseMiddleware(isAuth)
     async fetchProducts(@Arg("companyId") companyId: string) {
         return await Product.find({ where: { companyId } })
     }

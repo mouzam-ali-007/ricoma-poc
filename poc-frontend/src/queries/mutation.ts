@@ -20,3 +20,14 @@ export const loginCompany = gql`
     }
   }
 `
+
+export const fetchProducts = gql`
+query fetchProducts($companyId: String!) {
+  fetchProducts(companyId: $companyId) {
+    _id
+    name
+    details
+    image
+  }
+}
+`

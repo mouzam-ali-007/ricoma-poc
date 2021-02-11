@@ -46,7 +46,7 @@ function DisplayDesktop() {
   const classes = useStyles()
   return (
     <Toolbar>
-      <MenuItem className={classes.name}>Lore ipsum</MenuItem>
+      <MenuItem className={classes.name}>Lorem ipsum</MenuItem>
       <MenuItem className={classes.menuItem}>Trega</MenuItem>
       <MenuItem className={classes.menuItem}> Lireda</MenuItem>
       <MenuItem className={classes.menuItem}>Fohlie</MenuItem>

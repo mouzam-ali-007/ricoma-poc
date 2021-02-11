@@ -14,7 +14,7 @@ function GetDrawerChoices() {
   const classes = useStyles()
   return (
     <>
-      <MenuItem className={classes.menuItem}>Lore ipsum</MenuItem>
+      <MenuItem className={classes.menuItem}>Lorem ipsum</MenuItem>
       <MenuItem className={classes.menuItem}>Trega</MenuItem>
       <MenuItem className={classes.menuItem}> Lireda</MenuItem>
       <MenuItem className={classes.menuItem}>Fohlie</MenuItem>
