@@ -10,6 +10,8 @@ import {
   Button,
   makeStyles,
 } from '@material-ui/core'
+import Image from '../images/glasses.jpg'; 
+
 import {  useMutation, useQuery } from '@apollo/client';
 import {fetchProducts, loginCompany} from '../queries/mutation';
 
@@ -52,9 +54,13 @@ const useStyles = makeStyles(() => ({
   cardContent: {
     flexGrow: 1,
   },
+  cardButton:{
+    color: 'white',
+    background: 'black'
+  }
 }))
 
-function Product(card: Props) {
+function Product(list: Props) {
   const classes = useStyles()
 
   // const [loginComp, { error, data }] = useMutation<
@@ -67,7 +73,7 @@ function Product(card: Props) {
   });
 
     useEffect(() => {
-          console.log('Data from Product', data ,error)
+        //  console.log('Data from Product', data ,error)
       }, [data, error])
 
     const loginHelper = () => {
@@ -84,12 +90,19 @@ function Product(card: Props) {
             console.log(error)
           }
         }
+        const addToCart = (data: any )=> {
+          console.log('working', data);
+              try {
+              } catch (error) {
+                console.log(error)
+              }
+        }   
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.card}>
         <CardMedia
           className={classes.cardMedia}
-          image='https://source.unsplash.com/random'
+          image= { Image }
           title='Image title'
         />
         <CardContent className={classes.cardContent}>
@@ -100,14 +113,17 @@ function Product(card: Props) {
           {data ? data.fetchProducts[0].details : 'lorem ipsum lorem ipsum '}
           </Typography>
         </CardContent>
-        <CardActions>
+        {/* <CardActions>
           <Button onClick={()=>loginHelper()} size='small' color='primary'>
             View
           </Button>
           <Button size='small' color='primary'>
             Edit
           </Button>
-        </CardActions>
+        </CardActions> */}
+        <Button onClick={()=>addToCart(list)} size='large' className={classes.cardButton} >
+            Add to Cart
+          </Button>
       </Card>
     </Grid>
   )

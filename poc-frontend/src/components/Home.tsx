@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Grid from '@material-ui/core/Grid'
 import Image from '../images/HeroBackground.png'; 
 import { Typography , Card, CardMedia } from '@material-ui/core'
@@ -6,12 +6,23 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Link from '@material-ui/core/Link'
 import TopBar from './TopBar'
-import Product from './Product'
+import Product from './Product';
+import {  useQuery } from '@apollo/client';
+import {fetchProducts, loginCompany} from '../queries/mutation';
 
+
+// interface Product {
+//   _id: number
+//   name: string
+//   details: string
+//   image: string
+//   companyId: string
+//   quantity: string
+// }
 
 const Copyright = () =>{
   return (
-    <Typography variant='body2' color='textSecondary' align='center'>
+    <Typography variant='body2' color='primary' align='center'>
       {'Copyright © '}
       <Link color='inherit' href='https://material-ui.com/'>
         Ricoma Poc
@@ -46,16 +57,28 @@ const useStyles = makeStyles((theme) => ({
   },
 
   footer: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: 'black',
     padding: theme.spacing(6),
+    color: 'white'
   },
 }))
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 export default function Home() {
   const classes = useStyles()
+  const [productList, setProductList] = useState([])
+  
+  const { loading, error, data } = useQuery(fetchProducts, {
+    variables: { companyId :'60250d52d043c934f0b12640' },
+  });
 
+  useEffect(() => {
+    console.log('Data from Product', data ,error)
+    setProductList(data.fetchProducts)
+}, [data, error])
+
+console.log(productList)
   return (
     <React.Fragment>
       <TopBar />
@@ -83,8 +106,8 @@ export default function Home() {
         <Container className={classes.cardGrid} maxWidth='md'>
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card,index) => {
-              return <Product key={index} card={card} />
+            {productList.map((data,index) => {
+              return <Product key={index} card={data} />
             })}
           </Grid>
         </Container>
@@ -97,7 +120,7 @@ export default function Home() {
         <Typography
           variant='subtitle1'
           align='center'
-          color='textSecondary'
+          color='primary'
           component='p'
         >
           Something here to give the footer a purpose!
