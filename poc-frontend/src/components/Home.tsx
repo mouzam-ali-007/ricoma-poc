@@ -8,7 +8,7 @@ import Link from '@material-ui/core/Link'
 import TopBar from './TopBar'
 import Product from './Product';
 import {  useQuery } from '@apollo/client';
-import {fetchProducts, loginCompany} from '../queries/mutation';
+import {fetchProducts} from '../queries/mutation';
 
 
 // interface Product {
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles()
-  const [productList, setProductList] = useState([])
+  const [productList, setProductList] = useState<any[]>([])
   
   const { loading, error, data } = useQuery(fetchProducts, {
     variables: { companyId :'60250d52d043c934f0b12640' },
@@ -75,7 +75,10 @@ export default function Home() {
 
   useEffect(() => {
     console.log('Data from Product', data ,error)
-    setProductList(data.fetchProducts)
+    if(data){
+      setProductList(data.fetchProducts)
+    }
+    
 }, [data, error])
 
 console.log(productList)
@@ -106,8 +109,13 @@ console.log(productList)
         <Container className={classes.cardGrid} maxWidth='md'>
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {productList.map((data,index) => {
-              return <Product key={index} card={data} />
+            {productList.map((data,index):any => {
+              return <Product key={data._id} 
+              name={data.name}
+              details={data.details}
+              _id={data._id}
+              image={data.image}
+              />
             })}
           </Grid>
         </Container>

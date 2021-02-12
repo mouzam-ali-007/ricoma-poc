@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   Grid,
   Card,
@@ -16,7 +16,11 @@ import {  useMutation, useQuery } from '@apollo/client';
 import {fetchProducts, loginCompany} from '../queries/mutation';
 
 interface Props {
-  card: number
+  _id: string;
+  
+  image: string;
+   name: string;
+ details: string;
 }
 interface loginVar {
     email: string
@@ -60,9 +64,10 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-function Product(list: Props) {
+function Product(productData: Props) {
   const classes = useStyles()
-
+  const [cartArray, setCartArray] = useState<any[]>([])
+  
   // const [loginComp, { error, data }] = useMutation<
   //     { Company: Company },
   //     loginVar
@@ -71,32 +76,20 @@ function Product(list: Props) {
   const { loading, error, data } = useQuery(fetchProducts, {
     variables: { companyId :'60250d52d043c934f0b12640' },
   });
-
     useEffect(() => {
         //  console.log('Data from Product', data ,error)
       }, [data, error])
 
-    const loginHelper = () => {
-      console.log('working');
-          try {
-
-            // loginComp({
-            //   variables: {
-            //     email: 'admin@dell.com',
-            //     password: 'admin',
-            //   },
-            // })
+         const cartProd: Props[] = []  
+      const addToCart = (data: any )=> {
+        try {
+            setCartArray([...cartArray, data]);
           } catch (error) {
-            console.log(error)
+              console.log(error)
           }
-        }
-        const addToCart = (data: any )=> {
-          console.log('working', data);
-              try {
-              } catch (error) {
-                console.log(error)
-              }
         }   
+        
+        console.log('after cartArray', cartArray);
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.card}>
@@ -107,10 +100,10 @@ function Product(list: Props) {
         />
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant='h5' component='h2'>
-          {data ? data.fetchProducts[0].name : 'lorem ipsum'}
+          {productData ? productData.name : 'lorem ipsum'}
           </Typography>
           <Typography>
-          {data ? data.fetchProducts[0].details : 'lorem ipsum lorem ipsum '}
+          {productData ? productData.details : 'lorem ipsum lorem ipsum '}
           </Typography>
         </CardContent>
         {/* <CardActions>
@@ -121,7 +114,7 @@ function Product(list: Props) {
             Edit
           </Button>
         </CardActions> */}
-        <Button onClick={()=>addToCart(list)} size='large' className={classes.cardButton} >
+        <Button onClick={()=>addToCart(productData)} size='large' className={classes.cardButton} >
             Add to Cart
           </Button>
       </Card>

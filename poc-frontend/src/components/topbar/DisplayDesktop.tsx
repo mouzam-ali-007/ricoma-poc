@@ -1,14 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {
   makeStyles,
-  Link,
+  Menu,
   MenuItem,
   Toolbar,
   Tooltip,
-  Button,
 } from '@material-ui/core'
 
+import AddToCart from '../AddToCart'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 const useStyles = makeStyles(() => ({
@@ -17,6 +17,9 @@ const useStyles = makeStyles(() => ({
     fontSize: '22px',
     marginLeft: '10px',
     marginRight: '10px',
+  },
+  setMenu:{
+     display: 'flex',
   },
   name: {
     fontFamily: 'helvitica bold',
@@ -44,6 +47,13 @@ const useStyles = makeStyles(() => ({
 }))
 function DisplayDesktop() {
   const classes = useStyles()
+  const [open, isOpen] = useState(false)
+
+  
+  const handleClick = () =>{
+    console.log('click');
+    isOpen(!open)
+  }
   return (
     <Toolbar>
       <MenuItem className={classes.name}>Lorem ipsum</MenuItem>
@@ -55,7 +65,7 @@ function DisplayDesktop() {
       <MenuItem className={classes.icon}>
         <Tooltip title='Cart'>
           <MenuItem className={classes.menuItemIcons}>
-            <ShoppingCartIcon />
+            <ShoppingCartIcon onClick={handleClick} />
           </MenuItem>
         </Tooltip>
         <Tooltip title='Login'>
@@ -64,6 +74,23 @@ function DisplayDesktop() {
           </MenuItem>
         </Tooltip>
       </MenuItem>
+      <Menu
+          id="cart-menu"
+          style={{   top: '35px'}}
+          open={Boolean(open)}
+          onClose={handleClick}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+        >
+          
+           {open && <AddToCart />}
+        </Menu>
     </Toolbar>
   )
 }

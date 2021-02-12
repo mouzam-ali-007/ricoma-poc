@@ -22,4 +22,4 @@ async function runServer() {
   console.log('Server started at port :: 4000')
 }
 
-runServer()
+runServer();
