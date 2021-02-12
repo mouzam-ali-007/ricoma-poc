@@ -75,7 +75,10 @@ export default function Home() {
 
   useEffect(() => {
     console.log('Data from Product', data ,error)
-    setProductList(data.fetchProducts)
+    if(data){
+      setProductList(data.fetchProducts)
+    }
+    
 }, [data, error])
 
 console.log(productList)
