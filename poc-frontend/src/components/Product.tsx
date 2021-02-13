@@ -38,7 +38,7 @@ interface Company {
     address: string
     password: string
   }
-  interface Product {
+  interface Products {
     _id: number
     name: string
     details: string
@@ -66,30 +66,35 @@ const useStyles = makeStyles(() => ({
 
 function Product(productData: Props) {
   const classes = useStyles()
-  const [cartArray, setCartArray] = useState<any[]>([])
+  const [cartArray, setCartArray] = useState([] as Props[])
   
-  // const [loginComp, { error, data }] = useMutation<
-  //     { Company: Company },
-  //     loginVar
-  //   >(loginCompany)
 
   const { loading, error, data } = useQuery(fetchProducts, {
     variables: { companyId :'60250d52d043c934f0b12640' },
   });
-    useEffect(() => {
-        //  console.log('Data from Product', data ,error)
-      }, [data, error])
 
-         const cartProd: Props[] = []  
-      const addToCart = (data: any )=> {
-        try {
-            setCartArray([...cartArray, data]);
+    useEffect(() => {
+      // console.log('Data from Product', data )
+    }, [data, error])
+
+
+      const addToCart = (data: Props )=> {
+       try {
+          const cartProducts =JSON.parse(localStorage.getItem('cart') || '{}' );
+          setCartArray(cartProducts);
+    
+          setCartArray(prev => {
+             return [ data , ...prev ];
+          });
           } catch (error) {
               console.log(error)
           }
-        }   
-        
-        console.log('after cartArray', cartArray);
+        }
+
+        if (cartArray.length){
+          console.log('after cartArray', cartArray);
+          localStorage.setItem('cart', JSON.stringify(cartArray));
+        }
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.card}>

@@ -11,14 +11,6 @@ import {  useQuery } from '@apollo/client';
 import {fetchProducts} from '../queries/mutation';
 
 
-// interface Product {
-//   _id: number
-//   name: string
-//   details: string
-//   image: string
-//   companyId: string
-//   quantity: string
-// }
 
 const Copyright = () =>{
   return (
@@ -81,10 +73,9 @@ export default function Home() {
     
 }, [data, error])
 
-console.log(productList)
   return (
     <React.Fragment>
-      <TopBar />
+      <TopBar/>
       <main>
         {/* Hero unit */}
         

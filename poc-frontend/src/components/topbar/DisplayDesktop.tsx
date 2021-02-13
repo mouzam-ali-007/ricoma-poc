@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import {
   makeStyles,
@@ -6,11 +6,23 @@ import {
   MenuItem,
   Toolbar,
   Tooltip,
+  Badge,
+  withStyles 
 } from '@material-ui/core'
 
 import AddToCart from '../AddToCart'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}))(Badge);
+
 const useStyles = makeStyles(() => ({
   menuItem: {
     fontFamily: 'helvitica regular',
@@ -45,16 +57,22 @@ const useStyles = makeStyles(() => ({
     },
   },
 }))
+
 function DisplayDesktop() {
   const classes = useStyles()
   const [open, isOpen] = useState(false)
-
+  const [count, setCount] = useState(0)
   
   const handleClick = () =>{
-    console.log('click');
     isOpen(!open)
   }
-  return (
+  const cartProducts = JSON.parse(localStorage.getItem('cart') || '{}' );
+   
+  useEffect(() => {
+    setCount(cartProducts.length)
+  }, [cartProducts, cartProducts.length])
+
+   return (
     <Toolbar>
       <MenuItem className={classes.name}>Lorem ipsum</MenuItem>
       <MenuItem className={classes.menuItem}>Trega</MenuItem>
@@ -65,7 +83,9 @@ function DisplayDesktop() {
       <MenuItem className={classes.icon}>
         <Tooltip title='Cart'>
           <MenuItem className={classes.menuItemIcons}>
+          <StyledBadge  badgeContent={count} color="secondary">
             <ShoppingCartIcon onClick={handleClick} />
+          </StyledBadge >
           </MenuItem>
         </Tooltip>
         <Tooltip title='Login'>
