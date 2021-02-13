@@ -70,11 +70,11 @@ function Product(productData: Props) {
   
 
   const { loading, error, data } = useQuery(fetchProducts, {
-    variables: { companyId :'60250d52d043c934f0b12640' },
+    variables: { companyId :'6027dc73b4937e3390af7027' },
   });
 
     useEffect(() => {
-      // console.log('Data from Product', data )
+       console.log('Data from Product', data )
     }, [data, error])
 
 
@@ -121,7 +121,7 @@ function Product(productData: Props) {
         </CardActions> */}
         <Button onClick={()=>addToCart(productData)} size='large' className={classes.cardButton} >
             Add to Cart
-          </Button>
+        </Button>
       </Card>
     </Grid>
   )
