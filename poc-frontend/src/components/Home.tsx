@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import Grid from '@material-ui/core/Grid'
 import Image from '../images/HeroBackground.png'; 
-import { Typography , Card, CardMedia } from '@material-ui/core'
+import TopImage from '../images/TopImage.png'; 
+
+import { Typography , Card, CardMedia, CardContent,Button  } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Link from '@material-ui/core/Link'
@@ -9,16 +11,6 @@ import TopBar from './TopBar'
 import Product from './Product';
 import {  useQuery } from '@apollo/client';
 import {fetchProducts} from '../queries/mutation';
-
-
-// interface Product {
-//   _id: number
-//   name: string
-//   details: string
-//   image: string
-//   companyId: string
-//   quantity: string
-// }
 
 const Copyright = () =>{
   return (
@@ -35,14 +27,18 @@ const Copyright = () =>{
 
 const useStyles = makeStyles((theme) => ({
   root: {
+   // display: 'flex',
     position: "relative",
     padding: theme.spacing(8, 0, 6),
+    height: '800px'
   },
   font: {
+    maxWidth: '500px',
     position: "absolute",
-    top: "20%",
+    //top: "20%",
     textAlign: "center",
-    color: "black",
+    color: "white",
+    fontSize: '36px'
   },
   icon: {
     marginRight: theme.spacing(2),
@@ -55,12 +51,30 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
+  content: {
+    //flex: '1 0 auto',
+    position: 'relative',
+    bottom : '600px'
+  },
 
   footer: {
     backgroundColor: 'black',
     padding: theme.spacing(6),
     color: 'white'
   },
+  cardButton:{
+    color: 'white',
+    background: 'black',
+    position: 'relative',
+  },
+  topImage: {
+    position: 'relative',
+    width: '40%',
+    height: '30%',
+    //top: '20px',
+    left: '55%',
+    bottom: '100px'
+  }
 }))
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -81,29 +95,41 @@ export default function Home() {
     
 }, [data, error])
 
-console.log(productList)
   return (
     <React.Fragment>
-      <TopBar />
+      <TopBar/>
       <main>
         {/* Hero unit */}
         
         <Card className={classes.root}>
           <CardMedia
             component="img"
-            alt="Contemplative Reptile"
-            height="600"
+            alt="BackgroundImage"
+            height="800px"
             image={Image}
-            title="Contemplative Reptile"
+            title="BackgroundImage"
           />
-          <Typography
-            gutterBottom
-            variant="h1"
-            component="h1"
-            className={classes.font}
-          >
-            Lorem ipsum
-          </Typography>
+          <CardContent className={classes.content}>
+            <Typography
+              gutterBottom
+              variant="h1"
+              component="h1"
+              className={classes.font}
+             >
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+            </Typography>
+            {/* <Button  size="large" color= 'secondary' className={classes.cardButton}>
+              Lorem ipsum
+            </Button> */}
+            <CardMedia
+              className={classes.topImage}
+              component="img"
+              alt="TopImage"
+              height="600"
+              image={TopImage}
+              title="TopImage"
+              />
+            </CardContent>
         </Card>
 
         <Container className={classes.cardGrid} maxWidth='md'>

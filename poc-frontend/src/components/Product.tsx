@@ -40,7 +40,7 @@ interface Company {
     address: string
     password: string
   }
-  interface Product {
+  interface Products {
     _id: number
     name: string
     details: string
@@ -108,12 +108,12 @@ const useStyles = makeStyles(() => ({
 
 function Product(productData: Props) {
   const classes = useStyles()
-  const [cartArray, setCartArray] = useState<any[]>([])
+  const [cartArray, setCartArray] = useState([] as Props[])
   
 
-  const [firstCheckbox, setFirstCheckbox] = React.useState(true);
-  const [secondCheckbox, setSecondCheckbox] = React.useState(true);
-  const [thirdCheckbox, setThirdCheckbox] = React.useState(true);
+  const [firstCheckbox, setFirstCheckbox] = React.useState(false);
+  const [secondCheckbox, setSecondCheckbox] = React.useState(false);
+  const [thirdCheckbox, setThirdCheckbox] = React.useState(false);
   
   
 
@@ -123,24 +123,33 @@ function Product(productData: Props) {
   //   >(loginCompany)
 
   const { loading, error, data } = useQuery(fetchProducts, {
-    variables: { companyId :'60250d52d043c934f0b12640' },
+    variables: { companyId :'6027dc73b4937e3390af7027' },
   });
-    useEffect(() => {
-        //  console.log('Data from Product', data ,error)
-      }, [data, error])
 
-         const cartProd: Props[] = []  
-      const addToCart = (data: any )=> {
-        try {
-            setCartArray([...cartArray, data]);
+    useEffect(() => {
+       console.log('Data from Product', data )
+    }, [data, error])
+
+
+      const addToCart = (data: Props )=> {
+       try {
+          const cartProducts =JSON.parse(localStorage.getItem('cart') || '{}' );
+          setCartArray(cartProducts);
+    
+          setCartArray(prev => {
+             return [ data , ...prev ];
+          });
           } catch (error) {
               console.log(error)
           }
         }   
-
         
         console.log('after cartArray', cartArray);
         
+        if (cartArray.length){
+          console.log('after cartArray', cartArray);
+          localStorage.setItem('cart', JSON.stringify(cartArray));
+        }
   return (
     <Grid item xs={12} sm={6} md={4}>
       {console.log("143:checked : ",firstCheckbox)}
@@ -196,7 +205,7 @@ function Product(productData: Props) {
         <Button onClick={()=>addToCart(productData)} size='large' className={classes.cardButton} >
 
             Add to Cart
-          </Button>
+        </Button>
       </Card>
     </Grid>
   )

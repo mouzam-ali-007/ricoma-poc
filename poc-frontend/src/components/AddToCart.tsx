@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   makeStyles,
   Typography,
@@ -49,16 +49,36 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }))
+interface Props {
+  _id: string;
+  
+  image: string;
+   name: string;
+ details: string;
+}
 
 export default function AddToCart() {
   const classes = useStyles();
-  
-  const arr = [ {id: '1' , color: 'red'},{id: '2' , color: 'yellow'}]
+
+  const [cartItem, setCartItems] = useState<any[]>([])
+
+  useEffect(() => {
+    const cartProducts =JSON.parse(localStorage.getItem('cart') || '{}' );
+    setCartItems(cartProducts);
+ },[cartItem.length])
+ 
+  const removeItem = (index: number) =>{
+    cartItem.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cartItem));
+     
+    const newData =JSON.parse(localStorage.getItem('cart') || '{}' );   
+    setCartItems(newData);
+  }
 
   return (
     <React.Fragment>
-       { arr.map(item => (
-      <Card className={classes.root}>
+       {cartItem.length ? cartItem.map((item: Props, index: any) => (
+      <Card key= {index} className={classes.root}>
       <CardActionArea className={classes.actionArea} >
         <CardMedia
           className={classes.media}
@@ -67,19 +87,19 @@ export default function AddToCart() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {item.color}
+            {item.name}
           </Typography>
          
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.actions}>
-        <Button size="small">
+        <Button onClick={ ()=> removeItem(index)} size="small">
           Remove
         </Button>
       </CardActions>
     </Card>
        )
-    )}
+    ): null}
     </React.Fragment>
   )
 }
