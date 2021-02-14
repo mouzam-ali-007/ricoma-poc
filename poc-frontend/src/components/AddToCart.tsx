@@ -82,7 +82,7 @@ export default function AddToCart() {
       <CardActionArea className={classes.actionArea} >
         <CardMedia
           className={classes.media}
-          image={Image}
+          image={item.image}
           title="Image"
         />
         <CardContent>

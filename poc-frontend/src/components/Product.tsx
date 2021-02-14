@@ -12,17 +12,13 @@ import {
   makeStyles,
 } from '@material-ui/core'
 import clsx from 'clsx' 
-import Image from '../images/glasses.jpg'; 
-
-import {  useMutation, useQuery } from '@apollo/client';
-import {fetchProducts, loginCompany} from '../queries/mutation';
 
 interface Props {
   _id: string;
   
   image: string;
-   name: string;
- details: string;
+  name: string;
+  details: string;
 }
 interface loginVar {
     email: string
@@ -109,33 +105,21 @@ const useStyles = makeStyles(() => ({
 function Product(productData: Props) {
   const classes = useStyles()
   const [cartArray, setCartArray] = useState([] as Props[])
-  
-
   const [firstCheckbox, setFirstCheckbox] = React.useState(false);
   const [secondCheckbox, setSecondCheckbox] = React.useState(false);
   const [thirdCheckbox, setThirdCheckbox] = React.useState(false);
+  const [selected, setSelected] = React.useState([] as any);
   
-  
-
-  // const [loginComp, { error, data }] = useMutation<
-  //     { Company: Company },
-  //     loginVar
-  //   >(loginCompany)
-
-  const { loading, error, data } = useQuery(fetchProducts, {
-    variables: { companyId :'6027dc73b4937e3390af7027' },
-  });
-
-    useEffect(() => {
-       console.log('Data from Product', data )
-    }, [data, error])
-
 
       const addToCart = (data: Props )=> {
        try {
           const cartProducts =JSON.parse(localStorage.getItem('cart') || '{}' );
-          setCartArray(cartProducts);
-    
+          if (cartProducts.length){
+            console.log('cartProducs', cartProducts);
+          
+            setCartArray(cartProducts);
+          }
+          
           setCartArray(prev => {
              return [ data , ...prev ];
           });
@@ -144,19 +128,20 @@ function Product(productData: Props) {
           }
         }   
         
-        console.log('after cartArray', cartArray);
+        console.log('@@@ cartArray', cartArray);
         
         if (cartArray.length){
           console.log('after cartArray', cartArray);
           localStorage.setItem('cart', JSON.stringify(cartArray));
         }
+
   return (
     <Grid item xs={12} sm={6} md={4}>
       {console.log("143:checked : ",firstCheckbox)}
       <Card className={classes.card}>
         <CardMedia
           className={classes.cardMedia}
-          image= { Image }
+          image= { productData.image }
           title='Image title'
         />
         <CardContent className={classes.cardContent}>
@@ -176,10 +161,11 @@ function Product(productData: Props) {
           </Button>
         </CardActions> */}
         <div>
+          
          <Checkbox
          checkedIcon ={<span className ={clsx(classes.icon,classes.checkedIcon,classes.firstCheckbox)}/>}
          icon ={<span className = {clsx(classes.icon,classes.firstCheckbox)}> </span>}
-         checked={!!firstCheckbox}
+         checked={!!secondCheckbox}
          onChange={(event)=>{
            setFirstCheckbox(event.target.checked)
          }}

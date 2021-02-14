@@ -11,6 +11,10 @@ import TopBar from './TopBar'
 import Product from './Product';
 import {  useQuery } from '@apollo/client';
 import {fetchProducts} from '../queries/mutation';
+import Chair from '../images/chair.jpg';
+import Glasses from '../images/glasses.jpg';
+import AirPods from '../images/airpods.jpg';
+import Plant from '../images/plant.jpg';
 
 const Copyright = () =>{
   return (
@@ -95,7 +99,9 @@ export default function Home() {
     
 }, [data, error])
 
-  return (
+let images = [Chair, Glasses,AirPods,Plant ];
+
+return (
     <React.Fragment>
       <TopBar/>
       <main>
@@ -135,12 +141,13 @@ export default function Home() {
         <Container className={classes.cardGrid} maxWidth='md'>
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {productList.map((data,index):any => {
+          { 
+            productList.map((data,index):any => {
               return <Product key={data._id} 
               name={data.name}
               details={data.details}
               _id={data._id}
-              image={data.image}
+              image={images[ Math.floor(Math.random() * images.length)]}
               />
             })}
           </Grid>

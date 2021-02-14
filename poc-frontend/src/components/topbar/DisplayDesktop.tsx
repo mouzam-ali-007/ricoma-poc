@@ -10,7 +10,7 @@ import {
   withStyles 
 } from '@material-ui/core'
 
-import AddToCart from '../AddToCart'
+import AddToCart from '../AddToCart';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 
