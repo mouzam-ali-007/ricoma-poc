@@ -73,46 +73,45 @@ function DisplayDesktop() {
   }, [cartProducts, cartProducts.length])
 
    return (
-    <Toolbar>
-      <MenuItem className={classes.name}>Lorem ipsum</MenuItem>
-      <MenuItem className={classes.menuItem}>Trega</MenuItem>
-      <MenuItem className={classes.menuItem}> Lireda</MenuItem>
-      <MenuItem className={classes.menuItem}>Fohlie</MenuItem>
-      <MenuItem className={classes.menuItem}>Krielcw</MenuItem>
-      <MenuItem className={classes.menuItem}>Frllowi</MenuItem>
-      <MenuItem className={classes.icon}>
-        <Tooltip title='Cart'>
-          <MenuItem className={classes.menuItemIcons}>
-          <StyledBadge  badgeContent={count} color="secondary">
-            <ShoppingCartIcon onClick={handleClick} />
-          </StyledBadge >
-          </MenuItem>
-        </Tooltip>
-        <Tooltip title='Login'>
-          <MenuItem className={classes.menuItemIcons}>
-            <AccountCircleIcon />
-          </MenuItem>
-        </Tooltip>
-      </MenuItem>
-      <Menu
-          id="cart-menu"
-          style={{   top: '35px'}}
-          open={Boolean(open)}
-          onClose={handleClick}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-        >
-          
-           {open && <AddToCart />}
-        </Menu>
-    </Toolbar>
-  )
+     <Toolbar>
+       <MenuItem className={classes.name}>Lorem ipsum</MenuItem>
+       <MenuItem className={classes.menuItem}>Trega</MenuItem>
+       <MenuItem className={classes.menuItem}> Lireda</MenuItem>
+       <MenuItem className={classes.menuItem}>Fohlie</MenuItem>
+       <MenuItem className={classes.menuItem}>Krielcw</MenuItem>
+       <MenuItem className={classes.menuItem}>Frllowi</MenuItem>
+       <MenuItem className={classes.icon}>
+         <Tooltip title='Cart'>
+           <MenuItem className={classes.menuItemIcons}>
+             <StyledBadge badgeContent={cartProducts.length} color='secondary'>
+               <ShoppingCartIcon onClick={handleClick} />
+             </StyledBadge>
+           </MenuItem>
+         </Tooltip>
+         <Tooltip title='Login'>
+           <MenuItem className={classes.menuItemIcons}>
+             <AccountCircleIcon />
+           </MenuItem>
+         </Tooltip>
+       </MenuItem>
+       <Menu
+         id='cart-menu'
+         style={{ top: '35px' }}
+         open={Boolean(open)}
+         onClose={handleClick}
+         anchorOrigin={{
+           vertical: 'top',
+           horizontal: 'right',
+         }}
+         transformOrigin={{
+           vertical: 'top',
+           horizontal: 'right',
+         }}
+       >
+         {open && <AddToCart />}
+       </Menu>
+     </Toolbar>
+   )
 }
 
 export default DisplayDesktop
