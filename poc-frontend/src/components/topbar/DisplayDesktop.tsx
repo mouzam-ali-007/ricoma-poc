@@ -1,76 +1,67 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 
-import {
-  makeStyles,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Tooltip,
-  Badge,
-  withStyles,
-} from '@material-ui/core'
-import { cartItemsVar } from '../../cache'
-import AddToCart from '../AddToCart'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import { makeStyles, Menu, MenuItem, Toolbar, Tooltip, Badge, withStyles } from "@material-ui/core";
+import { cartItemsVar } from "../../cache";
+import AddToCart from "../AddToCart";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
     right: -3,
     top: 13,
     border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
+    padding: "0 4px",
   },
-}))(Badge)
+}))(Badge);
 
 const useStyles = makeStyles(() => ({
   menuItem: {
-    fontFamily: 'helvitica regular',
-    fontSize: '22px',
-    marginLeft: '10px',
-    marginRight: '10px',
+    fontFamily: "helvitica regular",
+    fontSize: "22px",
+    marginLeft: "10px",
+    marginRight: "10px",
   },
   setMenu: {
-    display: 'flex',
+    display: "flex",
   },
   name: {
-    fontFamily: 'helvitica bold',
-    fontSize: '28px',
-    width: '400px',
+    fontFamily: "helvitica bold",
+    fontSize: "28px",
+    width: "400px",
   },
   icon: {
-    fontFamily: 'helvitica regular',
-    fontSize: '22px',
-    marginLeft: '10%',
-    marginRight: '10%',
-    '&:hover': {
-      backgroundColor: 'rgb(255 ,255,255)',
+    fontFamily: "helvitica regular",
+    fontSize: "22px",
+    marginLeft: "10%",
+    marginRight: "10%",
+    "&:hover": {
+      backgroundColor: "rgb(255 ,255,255)",
     },
   },
   menuItemIcons: {
-    fontFamily: 'helvitica regular',
-    fontSize: '22px',
-    marginLeft: '-20%',
-    marginRight: '2%',
-    '&:hover': {
-      backgroundColor: 'rgb(255 ,255,255)',
+    fontFamily: "helvitica regular",
+    fontSize: "22px",
+    marginLeft: "-20%",
+    marginRight: "2%",
+    "&:hover": {
+      backgroundColor: "rgb(255 ,255,255)",
     },
   },
-}))
+}));
 
 function DisplayDesktop() {
-  const classes = useStyles()
-  const [open, isOpen] = useState(false)
-  const [count, setCount] = useState(0)
+  const classes = useStyles();
+  const [open, isOpen] = useState(false);
+  const [count, setCount] = useState(0);
 
   const handleClick = () => {
-    isOpen(!open)
-  }
-  const cartProducts: any[] = cartItemsVar()
+    isOpen(!open);
+  };
+  const cartProducts: any[] = cartItemsVar();
   useEffect(() => {
-    setCount(cartProducts.length)
-    console.log('asdddddddddddddddd TTTTTTTTTTTTTTTTTTTTTTTTT')
-  }, [])
+    setCount(cartProducts.length);
+  }, []);
 
   return (
     <Toolbar>
@@ -81,37 +72,37 @@ function DisplayDesktop() {
       <MenuItem className={classes.menuItem}>Krielcw</MenuItem>
       <MenuItem className={classes.menuItem}>Frllowi</MenuItem>
       <MenuItem className={classes.icon}>
-        <Tooltip title='Cart'>
+        <Tooltip title="Cart">
           <MenuItem className={classes.menuItemIcons}>
-            <StyledBadge badgeContent={count} color='secondary'>
+            <StyledBadge badgeContent={count} color="secondary">
               <ShoppingCartIcon onClick={handleClick} />
             </StyledBadge>
           </MenuItem>
         </Tooltip>
-        <Tooltip title='Login'>
+        {/* <Tooltip title='Login'>
           <MenuItem className={classes.menuItemIcons}>
             <AccountCircleIcon />
           </MenuItem>
-        </Tooltip>
+        </Tooltip> */}
       </MenuItem>
       <Menu
-        id='cart-menu'
-        style={{ top: '35px' }}
+        id="cart-menu"
+        style={{ top: "35px" }}
         open={Boolean(open)}
         onClose={handleClick}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
       >
         {open && <AddToCart setCount={setCount} handleClick={handleClick} />}
       </Menu>
     </Toolbar>
-  )
+  );
 }
 
-export default DisplayDesktop
+export default DisplayDesktop;

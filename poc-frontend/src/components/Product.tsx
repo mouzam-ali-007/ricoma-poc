@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from 'react'
-import { cartItemsVar } from '../cache'
+import React, { useState, useEffect } from "react";
+import { cartItemsVar } from "../cache";
 import {
   Grid,
   Card,
@@ -11,73 +11,72 @@ import {
   CardActions,
   Button,
   makeStyles,
-} from '@material-ui/core'
-import clsx from 'clsx'
+} from "@material-ui/core";
+import clsx from "clsx";
 
 interface Props {
-  _id: string
+  _id: string;
 
-  image: string
-  name: string
-  details: string
+  image: string;
+  name: string;
+  details: string;
 }
 interface loginVar {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 interface productParams {
-  companyId: string
+  companyId: string;
 }
 interface Company {
-  _id: number
-  accessToken: string
-  name: string
-  email: string
-  contact: string
-  address: string
-  password: string
+  _id: number;
+  accessToken: string;
+  name: string;
+  email: string;
+  contact: string;
+  address: string;
+  password: string;
 }
 interface Products {
-  _id: number
-  name: string
-  details: string
-  image: string
-  companyId: string
-  quantity: string
+  _id: number;
+  name: string;
+  details: string;
+  image: string;
+  companyId: string;
+  quantity: string;
 }
 const useStyles = makeStyles(() => ({
   card: {
-    height: '100%',
+    height: "100%",
     borderRadius: 20,
-    display: 'flex',
-    flexDirection: 'column',
-    boxShadow: '   0px 0px 5px 0px rgba(102, 107, 107, 0.55)',
+    display: "flex",
+    flexDirection: "column",
+    boxShadow: "   0px 0px 5px 0px rgba(102, 107, 107, 0.55)",
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%",
   },
   cardContent: {
     flexGrow: 1,
   },
   cardButton: {
-    color: 'white',
-    background: 'black',
+    color: "white",
+    background: "black",
   },
 
   icon: {
     borderRadius: 3,
     width: 23,
     height: 23,
-    boxShadow:
-      'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
-    '$root.Mui-focusVisible &': {
-      outline: '2px auto rgba(19,124,189,.6)',
+    boxShadow: "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
+    "$root.Mui-focusVisible &": {
+      outline: "2px auto rgba(19,124,189,.6)",
       outlineOffset: 2,
     },
   },
   checkedIcon: {
-    '&:before': {
-      display: 'block',
+    "&:before": {
+      display: "block",
       width: 23,
       height: 23,
       backgroundImage:
@@ -89,146 +88,95 @@ const useStyles = makeStyles(() => ({
   },
 
   firstCheckbox: {
-    backgroundColor: '#81396F',
+    backgroundColor: "#81396F",
   },
 
   secondCheckbox: {
-    backgroundColor: '#F6437D',
+    backgroundColor: "#F6437D",
   },
   thirdCheckbox: {
-    backgroundColor: '#143061',
+    backgroundColor: "#143061",
   },
-}))
+}));
 
 function Product(productData: Props) {
-  const classes = useStyles()
-  const [cartArray, setCartArray] = useState([] as Props[])
-  const [firstCheckbox, setFirstCheckbox] = React.useState(false)
-  const [secondCheckbox, setSecondCheckbox] = React.useState(false)
-  const [thirdCheckbox, setThirdCheckbox] = React.useState(false)
-  const [selected, setSelected] = React.useState([] as any)
+  const classes = useStyles();
+  const [cartArray, setCartArray] = useState([] as Props[]);
+  const [firstCheckbox, setFirstCheckbox] = React.useState(false);
+  const [secondCheckbox, setSecondCheckbox] = React.useState(false);
+  const [thirdCheckbox, setThirdCheckbox] = React.useState(false);
+  const [selected, setSelected] = React.useState([] as any);
 
   const addToCart = (data: Props) => {
     try {
-      const cartProducts = cartItemsVar()
+      const cartProducts = cartItemsVar();
       if (cartProducts.length) {
-        console.log('cartProducs', cartProducts)
+        console.log("cartProducs", cartProducts);
 
-        setCartArray(cartProducts)
+        setCartArray(cartProducts);
       }
 
       setCartArray((prev) => {
-        return [data, ...prev]
-      })
+        return [data, ...prev];
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-
-  console.log('@@@ cartArray', cartArray)
+  };
 
   if (cartArray.length) {
-    cartItemsVar(cartArray)
+    cartItemsVar(cartArray);
 
-    console.log(cartItemsVar())
+    console.log(cartItemsVar());
   }
 
   return (
     <Grid item xs={12} sm={6} md={4}>
-      {console.log('143:checked : ', firstCheckbox)}
       <Card className={classes.card}>
-        <CardMedia
-          className={classes.cardMedia}
-          image={productData.image}
-          title='Image title'
-        />
+        <CardMedia className={classes.cardMedia} image={productData.image} title="Image title" />
         <CardContent className={classes.cardContent}>
-          <Typography gutterBottom variant='h5' component='h2'>
-            {productData ? productData.name : 'lorem ipsum'}
+          <Typography gutterBottom variant="h5" component="h2">
+            {productData ? productData.name : "lorem ipsum"}
           </Typography>
-          <Typography>
-            {productData ? productData.details : 'lorem ipsum lorem ipsum '}
-          </Typography>
+          <Typography>{productData ? productData.details : "lorem ipsum lorem ipsum "}</Typography>
         </CardContent>
-        {/* <CardActions>
-          <Button onClick={()=>loginHelper()} size='small' color='primary'>
-            View
-          </Button>
-          <Button size='small' color='primary'>
-            Edit
-          </Button>
-        </CardActions> */}
         <div>
           <Checkbox
             checkedIcon={
-              <span
-                className={clsx(
-                  classes.icon,
-                  classes.checkedIcon,
-                  classes.firstCheckbox
-                )}
-              />
+              <span className={clsx(classes.icon, classes.checkedIcon, classes.firstCheckbox)} />
             }
-            icon={
-              <span className={clsx(classes.icon, classes.firstCheckbox)}>
-                {' '}
-              </span>
-            }
+            icon={<span className={clsx(classes.icon, classes.firstCheckbox)}> </span>}
             checked={!!firstCheckbox}
             onChange={(event) => {
-              setFirstCheckbox(event.target.checked)
+              setFirstCheckbox(event.target.checked);
             }}
           />
           <Checkbox
             checkedIcon={
-              <span
-                className={clsx(
-                  classes.icon,
-                  classes.checkedIcon,
-                  classes.secondCheckbox
-                )}
-              />
+              <span className={clsx(classes.icon, classes.checkedIcon, classes.secondCheckbox)} />
             }
-            icon={
-              <span className={clsx(classes.icon, classes.secondCheckbox)}>
-                {' '}
-              </span>
-            }
+            icon={<span className={clsx(classes.icon, classes.secondCheckbox)}> </span>}
             checked={!!secondCheckbox}
             onChange={(event) => {
-              setSecondCheckbox(event.target.checked)
+              setSecondCheckbox(event.target.checked);
             }}
           />
           <Checkbox
             checkedIcon={
-              <span
-                className={clsx(
-                  classes.icon,
-                  classes.checkedIcon,
-                  classes.thirdCheckbox
-                )}
-              />
+              <span className={clsx(classes.icon, classes.checkedIcon, classes.thirdCheckbox)} />
             }
-            icon={
-              <span className={clsx(classes.icon, classes.thirdCheckbox)}>
-                {' '}
-              </span>
-            }
+            icon={<span className={clsx(classes.icon, classes.thirdCheckbox)}> </span>}
             checked={!!thirdCheckbox}
             onChange={(event) => {
-              setThirdCheckbox(event.target.checked)
+              setThirdCheckbox(event.target.checked);
             }}
           />
         </div>
-        <Button
-          onClick={() => addToCart(productData)}
-          size='large'
-          className={classes.cardButton}
-        >
+        <Button onClick={() => addToCart(productData)} size="large" className={classes.cardButton}>
           Add to Cart
         </Button>
       </Card>
     </Grid>
-  )
+  );
 }
-export default Product
+export default Product;
