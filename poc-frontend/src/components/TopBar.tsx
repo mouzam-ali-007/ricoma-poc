@@ -3,18 +3,8 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import GetDrawerChoices from './topbar/GetDrawerChoices'
 import DisplayDesktop from './topbar/DisplayDesktop'
-import {
-  makeStyles,
-  Link,
-  MenuItem,
-  IconButton,
-  Drawer,
-  Typography,
-  Button,
-} from '@material-ui/core'
+import { makeStyles, IconButton, Drawer } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-
 const useStyles = makeStyles((theme) => ({
   header: {
     paddingRight: '79px',

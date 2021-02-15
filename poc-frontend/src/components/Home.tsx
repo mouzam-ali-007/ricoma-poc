@@ -1,22 +1,28 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
-import Image from '../images/HeroBackground.png'; 
-import TopImage from '../images/TopImage.png'; 
+import Image from '../images/HeroBackground.png'
+import TopImage from '../images/TopImage.png'
 
-import { Typography , Card, CardMedia, CardContent,Button  } from '@material-ui/core'
+import {
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  Button,
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Link from '@material-ui/core/Link'
 import TopBar from './TopBar'
-import Product from './Product';
-import {  useQuery } from '@apollo/client';
-import {fetchProducts} from '../queries/mutation';
-import Chair from '../images/chair.jpg';
-import Glasses from '../images/glasses.jpg';
-import AirPods from '../images/airpods.jpg';
-import Plant from '../images/plant.jpg';
-
-const Copyright = () =>{
+import Product from './Product'
+import { useQuery } from '@apollo/client'
+import { fetchProducts } from '../queries/mutation'
+import Chair from '../images/chair.jpg'
+import Glasses from '../images/glasses.jpg'
+import AirPods from '../images/airpods.jpg'
+import Plant from '../images/plant.jpg'
+import { cartItemsVar } from '../cache'
+const Copyright = () => {
   return (
     <Typography variant='body2' color='primary' align='center'>
       {'Copyright © '}
@@ -31,18 +37,18 @@ const Copyright = () =>{
 
 const useStyles = makeStyles((theme) => ({
   root: {
-   // display: 'flex',
-    position: "relative",
+    // display: 'flex',
+    position: 'relative',
     padding: theme.spacing(8, 0, 6),
-    height: '800px'
+    height: '800px',
   },
   font: {
     maxWidth: '500px',
-    position: "absolute",
+    position: 'absolute',
     //top: "20%",
-    textAlign: "center",
-    color: "white",
-    fontSize: '36px'
+    textAlign: 'center',
+    color: 'white',
+    fontSize: '36px',
   },
   icon: {
     marginRight: theme.spacing(2),
@@ -58,15 +64,15 @@ const useStyles = makeStyles((theme) => ({
   content: {
     //flex: '1 0 auto',
     position: 'relative',
-    bottom : '600px'
+    bottom: '600px',
   },
 
   footer: {
     backgroundColor: 'black',
     padding: theme.spacing(6),
-    color: 'white'
+    color: 'white',
   },
-  cardButton:{
+  cardButton: {
     color: 'white',
     background: 'black',
     position: 'relative',
@@ -77,8 +83,8 @@ const useStyles = makeStyles((theme) => ({
     height: '30%',
     //top: '20px',
     left: '55%',
-    bottom: '100px'
-  }
+    bottom: '100px',
+  },
 }))
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -86,69 +92,72 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
   const classes = useStyles()
   const [productList, setProductList] = useState<any[]>([])
-  
+
   const { loading, error, data } = useQuery(fetchProducts, {
-    variables: { companyId :'60250d52d043c934f0b12640' },
-  });
+    variables: { companyId: '60250d52d043c934f0b12640' },
+  })
 
   useEffect(() => {
-    console.log('Data from Product', data ,error)
-    if(data){
+    if (data) {
+      console.log('Data from Product', data, error)
+
       setProductList(data.fetchProducts)
     }
-    
-}, [data, error])
+  }, [data, error])
 
-let images = [Chair, Glasses,AirPods,Plant ];
+  let images = [Chair, Glasses, AirPods, Plant]
 
-return (
+  return (
     <React.Fragment>
-      <TopBar/>
+      <TopBar />
       <main>
         {/* Hero unit */}
-        
+
         <Card className={classes.root}>
           <CardMedia
-            component="img"
-            alt="BackgroundImage"
-            height="800px"
+            component='img'
+            alt='BackgroundImage'
+            height='800px'
             image={Image}
-            title="BackgroundImage"
+            title='BackgroundImage'
           />
           <CardContent className={classes.content}>
             <Typography
               gutterBottom
-              variant="h1"
-              component="h1"
+              variant='h1'
+              component='h1'
               className={classes.font}
-             >
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua
             </Typography>
             {/* <Button  size="large" color= 'secondary' className={classes.cardButton}>
               Lorem ipsum
             </Button> */}
             <CardMedia
               className={classes.topImage}
-              component="img"
-              alt="TopImage"
-              height="600"
+              component='img'
+              alt='TopImage'
+              height='600'
               image={TopImage}
-              title="TopImage"
-              />
-            </CardContent>
+              title='TopImage'
+            />
+          </CardContent>
         </Card>
 
         <Container className={classes.cardGrid} maxWidth='md'>
           {/* End hero unit */}
           <Grid container spacing={4}>
-          { 
-            productList.map((data,index):any => {
-              return <Product key={data._id} 
-              name={data.name}
-              details={data.details}
-              _id={data._id}
-              image={images[ Math.floor(Math.random() * images.length)]}
-              />
+            {productList.map((data, index): any => {
+              return (
+                <Product
+                  key={data._id}
+                  name={data.name}
+                  details={data.details}
+                  _id={data._id}
+                  image={images[Math.floor(Math.random() * images.length)]}
+                />
+              )
             })}
           </Grid>
         </Container>

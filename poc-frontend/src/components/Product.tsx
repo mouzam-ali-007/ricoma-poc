@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
+import { cartItemsVar } from '../cache'
 import {
   Grid,
   Card,
@@ -109,7 +110,7 @@ function Product(productData: Props) {
 
   const addToCart = (data: Props) => {
     try {
-      const cartProducts = JSON.parse(localStorage.getItem('cart') || '{}')
+      const cartProducts = cartItemsVar()
       if (cartProducts.length) {
         console.log('cartProducs', cartProducts)
 
@@ -127,8 +128,9 @@ function Product(productData: Props) {
   console.log('@@@ cartArray', cartArray)
 
   if (cartArray.length) {
-    console.log('after cartArray', cartArray)
-    localStorage.setItem('cart', JSON.stringify(cartArray))
+    cartItemsVar(cartArray)
+
+    console.log(cartItemsVar())
   }
 
   return (
