@@ -94,7 +94,7 @@ export default function Home() {
   const [productList, setProductList] = useState<any[]>([])
 
   const { loading, error, data } = useQuery(fetchProducts, {
-    variables: { companyId: '60250d52d043c934f0b12640' },
+    variables: { companyId: '602a6dd940898751b04970f0' },
   })
 
   useEffect(() => {

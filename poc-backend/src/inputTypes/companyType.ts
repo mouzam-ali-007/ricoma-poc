@@ -20,9 +20,4 @@ export class CompanyType {
     @Field()
     address: string
 
-    // @Field()
-    // createdAt: Date
-
-    // @Field()
-    // updatedAt: Date
 }
