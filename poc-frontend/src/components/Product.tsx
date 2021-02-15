@@ -120,8 +120,8 @@ function Product(productData: Props) {
             setCartArray(cartProducts);
           }
           
-          setCartArray(prev => {
-             return [ data , ...prev ];
+          setCartArray((prev) => {
+              return [ data , ...prev ];
           });
           } catch (error) {
               console.log(error)
@@ -165,7 +165,7 @@ function Product(productData: Props) {
          <Checkbox
          checkedIcon ={<span className ={clsx(classes.icon,classes.checkedIcon,classes.firstCheckbox)}/>}
          icon ={<span className = {clsx(classes.icon,classes.firstCheckbox)}> </span>}
-         checked={!!secondCheckbox}
+         checked={!!firstCheckbox}
          onChange={(event)=>{
            setFirstCheckbox(event.target.checked)
          }}

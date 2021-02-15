@@ -68,7 +68,6 @@ export class CompanyResolver {
 
     const hashedPassword = await hash(data.password, 13)
     data.password = hashedPassword
-    console.log('DATA', data)
     const company = Company.create(data)
 
     console.log(company)

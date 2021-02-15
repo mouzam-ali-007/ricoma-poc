@@ -10,7 +10,6 @@ export const isAuth: MiddlewareFn<Context> = ({ context }, next) => {
     if (!authorization) {
         throw new Error("Not authenticated");
     }
-    console.log('authorization', authorization);
     // Set Bearer
     try {
         const token = authorization.split(" ")[1];

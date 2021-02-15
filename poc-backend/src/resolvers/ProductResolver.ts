@@ -22,14 +22,11 @@ export class ProductResolver {
 
     async addProduct(@Arg('data') data: ProductType) {
         let getProduct = await Product.findOne({ where: { name: data.name }, relations: ['productSizes', 'productColors'] });
-        if (!getProduct) {
-            console.log(getProduct);
+        if (getProduct) {
             throw new Error("Already Exist");
         } else {
-            //let product = null;
 
             const product = Product.create(data)
-
             console.log(product)
             await product.save()
 
