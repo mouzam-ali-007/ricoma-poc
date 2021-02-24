@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Image from "../images/HeroBackground.png";
 import TopImage from "../images/TopImage.png";
+import TopBanner from '../components/TopBanner';
 
 import { Typography, Card, CardMedia, CardContent, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -99,6 +100,7 @@ export default function Home() {
 
   return (
     <React.Fragment>
+      <TopBanner/>
       <TopBar />
       <main>
         <Card className={classes.root}>
