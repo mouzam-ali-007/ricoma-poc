@@ -17,6 +17,8 @@ import AirPods from "../images/airpods.jpg";
 import Plant from "../images/plant.jpg";
 import { cartItemsVar } from "../cache";
 
+import './Home.css';
+
 const Copyright = () => {
   return (
     <Typography variant="body2" color="primary" align="center">
@@ -33,7 +35,7 @@ const Copyright = () => {
 const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",
-    padding: theme.spacing(8, 0, 6),
+    // padding: theme.spacing(8, 0, 6),
     height: "800px",
   },
   font: {
@@ -113,7 +115,13 @@ export default function Home() {
             <Typography gutterBottom variant="h1" component="h1" className={classes.font}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua
-            </Typography>
+            
+            <Button className="myButton">
+                Lorem
+            </Button>
+            
+            </Typography>            
+            
             {/* <Button  size="large" color= 'secondary' className={classes.cardButton}>
               Lorem ipsum
             </Button> */}
@@ -124,7 +132,7 @@ export default function Home() {
               height="600"
               image={TopImage}
               title="TopImage"
-            />
+            />         
           </CardContent>
         </Card>
 
