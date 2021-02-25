@@ -24,3 +24,8 @@
     background-color: rgb(54, 9, 255) !important;
     color: black !important;
 }
+
+.noProductsFound{
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
