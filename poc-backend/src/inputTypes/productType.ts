@@ -6,6 +6,9 @@ import { Color } from '../entity/Color'
 export class ProductType {
 
     @Field({ nullable: true })
+    _id: string
+
+    @Field({ nullable: true })
     productId: string
 
     @Field()
@@ -20,10 +23,10 @@ export class ProductType {
     @Field()
     quantity: number
 
-    @Field(() => [String], { nullable: true })
-    productSize: String[]
+    @Field(() => [String])
+    productSize: string[]
 
-    @Field(() => [String], { nullable: true })
+    @Field(() => [String])
     productColor: string[]
 
     @Field()

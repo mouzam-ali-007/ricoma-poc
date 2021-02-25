@@ -12,6 +12,7 @@ export class Product extends BaseEntity {
     @Field(() => ID)
     @ObjectIdColumn()
     _id: ObjectID
+
     @Field(() => String)
     @Column()
     name: string
@@ -28,13 +29,17 @@ export class Product extends BaseEntity {
     @Column()
     quantity: number
 
-    @Field(() => [Color])
-    @OneToMany(() => Color, item => item.product, { lazy: true, cascade: true })
-    productColors: Color[];
 
-    @Field(() => [Size])
-    @OneToMany(() => Size, item => item.product, { lazy: true, cascade: true })
-    productSizes: Size[];
+    @Field(() => [String])
+    // @OneToMany(() => Size, item => item.product, { lazy: true, cascade: true })
+    @Column()
+    productSize: string[];
+
+    @Field(() => [String])
+    @Column()
+    //  @OneToMany(() => Color, item => item.product, { lazy: true, cascade: true })
+    productColor: string[];
+
 
     @Field(() => String)
     @Column()

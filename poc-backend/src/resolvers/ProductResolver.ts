@@ -1,12 +1,16 @@
 import { Resolver, Query, Mutation, Arg, UseMiddleware } from 'type-graphql'
 import { ProductType } from '../inputTypes/productType'
-import { Product } from '../entity/Product'
+import { Product } from '../entity/Product';
 import { isAuth } from "../authentication/auth";
+const {
+    ApolloServer,
+    ApolloError
+} = require('apollo-server');
 
 @Resolver()
 export class ProductResolver {
     /* 
-        Fetch Product for Company
+        Fetch Product of Company
     */
     @Query(() => [Product])
     // @UseMiddleware(isAuth)
@@ -20,46 +24,41 @@ export class ProductResolver {
     @Mutation(() => Product)
     @UseMiddleware(isAuth)
 
-    async addProduct(@Arg('data') data: ProductType) {
+    async addProduct(@Arg('data') data: ProductType): Promise<Product | undefined | null> {
+
         let getProduct = await Product.findOne({ where: { name: data.name }, relations: ['productSizes', 'productColors'] });
         if (getProduct) {
-            throw new Error("Already Exist");
+            throw new Error("Product Already Exist");
         } else {
 
             const product = Product.create(data)
-            console.log(product)
             await product.save()
-
             return product
         }
     }
 
     /* 
-        Update Product Mutation
+      Update Product Mutation
     */
-    @Mutation(() => Product)
-    @UseMiddleware(isAuth)
 
-    async updateProduct(@Arg("input") { name, details, image, productId }: ProductType) {
-        const product = await Product.findOne({ where: { name } })
+    @Mutation(() => Product)
+    async updateProduct(@Arg("productId") productId: string, @Arg("data") data: ProductType): Promise<Product | undefined | null> {
+        let product = await Product.findOne(productId);
 
         if (product) {
-            product.name = name;
-            product.details = details;
+            product.name = data.name;
+            product.details = data.details;
+            product.quantity = data.quantity;
 
-            let res = await Product.update(productId, product)
-
-            console.log(res)
+            await (Product).update(productId, product)
             return product
-
-        } else {
-            throw new Error("NOT FOUND");
         }
+        throw new Error(`Product with id: ${productId} does not exist!`);
     }
 
     /* 
       Delete Product Mutation
-  */
+    */
     @Mutation(() => Product!, { nullable: true })
     async deleteProduct(
         @Arg("productId") productId: string
@@ -70,6 +69,6 @@ export class ProductResolver {
             await allProduct.delete(productId);
             return product;
         }
-        throw new Error("NOT FOUND");
+        throw new ApolloError(`Product with id: ${productId} does not exist!`, 'FAILURE', false);
     }
 }
