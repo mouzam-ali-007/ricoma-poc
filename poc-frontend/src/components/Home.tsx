@@ -100,7 +100,7 @@ export default function Home() {
   let images = [Chair, Glasses, AirPods, Plant];
 
   return (
-    <React.Fragment>
+  <React.Fragment>
       <TopBar />
       <main>
         <Card className={classes.root}>
