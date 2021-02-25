@@ -22,10 +22,10 @@ export default function TopBanner() {
 	const classes = useStyles();
 
 	const [ showHeader, setShowHeader ] = useState(true);
-	const [ timerDays, setTimerDays ] = useState<any>('00');
-	const [ timerHours, setTimerHours ] = useState<any>('00');
-	const [ timerMinutes, setTimerMinutes ] = useState<any>('00');
-	const [ timerSeconds, setTimerSeconds ] = useState<any>('00');
+	const [ days, setDays ] = useState<any>('00');
+	const [ hours, setHours ] = useState<any>('00');
+	const [ minutes, setMinutes ] = useState<any>('00');
+	const [ seconds, setSeconds ] = useState<any>('00');
 
 	let interval = useRef<number | null>(null);
 
@@ -33,21 +33,21 @@ export default function TopBanner() {
 		let countdownDate = new Date().getTime() + 86400000*3;
 
 		interval.current = window.setInterval(() => {
-			const now = new Date().getTime();
-			const distance = countdownDate - now;
+			const currentDate = new Date().getTime();
+			const dateDifference = countdownDate - currentDate;
 
-			const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-			const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-			const minutes = Math.floor((distance / 1000 / 60) % 60);
-			const seconds = Math.floor((distance / 1000) % 60);
+			const days = Math.floor(dateDifference / (1000 * 60 * 60 * 24));
+			const hours = Math.floor((dateDifference / (1000 * 60 * 60)) % 24);
+			const minutes = Math.floor((dateDifference / 1000 / 60) % 60);
+			const seconds = Math.floor((dateDifference / 1000) % 60);
 
-			if (distance < 0) {
+			if (dateDifference < 0) {
 				window.clearInterval(interval.current || 0);
 			} else {
-				setTimerDays(days);
-				setTimerHours(hours);
-				setTimerMinutes(minutes);
-				setTimerSeconds(seconds);
+				setDays(days);
+				setHours(hours);
+				setMinutes(minutes);
+				setSeconds(seconds);
 			}
 		}, 1000);
 	};
@@ -76,7 +76,7 @@ export default function TopBanner() {
 					</Grid>
 					<Grid item xs={12} lg={6}>
 						<p>
-							{timerDays} days : {timerHours} hrs : {timerMinutes} min : {timerSeconds} secs
+							{days} days : {hours} hrs : {minutes} min : {seconds} secs
 						</p>
 					</Grid>
 				</Grid>
