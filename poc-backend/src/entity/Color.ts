@@ -14,7 +14,7 @@ export class Color extends BaseEntity {
   color: string;
 
   @Field(() => Product, { nullable: true })
-  @ManyToOne(() => Product, product => product.productColors, { lazy: true })
+  @ManyToOne(() => Product, product => product.productColor, { lazy: true })
   product: Product;
 
 }

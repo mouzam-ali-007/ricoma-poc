@@ -20,6 +20,7 @@ import { Context } from "../authentication/context";
 
 @Resolver()
 export class CompanyResolver {
+
   @Query(() => [Company])
   @UseMiddleware(isAuth)
   async companies() {
