@@ -1,31 +1,17 @@
-.myButton{
-    text-transform: uppercase !important;
-    color: white !important;
-    background-color: rgb(0,0,0) !important;
-    background-image: none !important;
-    padding: 15px 66px !important;
-    letter-spacing: 1px !important;
-    margin: 0px !important;
-    font-size: 15px !important;
-    border-radius: 25px !important;
-    transition: all 0.5 linear 0s !important;
-    border: 0px !important;
-
-    line-height: 1.5 !important;
-
-    display: inline-block !important;
-    text-align: center !important;
-    vertical-align: middle !important;
-    font-family: 'Raleway', sans-serif !important;
-    margin-top: 45px !important;
+.myButton {
+  color: white !important;
+  background-color: rgb(0, 0, 0) !important;
+  padding: 15px 66px !important;
+  letter-spacing: 1px !important;
+  font-size: 15px !important;
+  border-radius: 25px !important;
+  transition: all 0.5 linear 0s !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  margin-top: 45px !important;
 }
 
 .myButton:hover {
-    background-color: rgb(54, 9, 255) !important;
-    color: black !important;
-}
-
-.noProductsFound{
-    margin-top: 10%;
-    margin-bottom: 10%;
+  background-color: rgb(239, 238, 241) !important;
+  color: black !important;
 }

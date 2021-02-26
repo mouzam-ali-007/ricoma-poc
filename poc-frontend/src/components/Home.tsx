@@ -16,7 +16,6 @@ import Chair from "../images/chair.jpg";
 import Glasses from "../images/glasses.jpg";
 import AirPods from "../images/airpods.jpg";
 import Plant from "../images/plant.jpg";
-import { cartItemsVar } from "../cache";
 
 import "./Home.css";
 
@@ -52,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     padding: theme.spacing(8, 0, 6),
   },
-
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
@@ -80,6 +78,11 @@ const useStyles = makeStyles((theme) => ({
     left: "55%",
     bottom: "100px",
   },
+
+  noProductsFound: {
+    marginTop: "10%",
+    marginBottom: "10%",
+  },
 }));
 
 export default function Home() {
@@ -92,8 +95,6 @@ export default function Home() {
 
   useEffect(() => {
     if (data) {
-      console.log("Data from Product", data, error);
-
       setProductList(data.fetchProducts);
     }
   }, [data, error]);
@@ -117,12 +118,9 @@ export default function Home() {
             <Typography gutterBottom variant="h1" component="h1" className={classes.font}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua
-              <Button className="myButton">Lorem</Button>
+              <Button className="myButton">Lorem ipsum</Button>
             </Typography>
 
-            {/* <Button  size="large" color= 'secondary' className={classes.cardButton}>
-              Lorem ipsum
-            </Button> */}
             <CardMedia
               className={classes.topImage}
               component="img"
@@ -151,7 +149,7 @@ export default function Home() {
             </Grid>
           </Container>
         ) : (
-          <h3 className="noProductsFound">No Products Available</h3>
+          <h3 className={classes.noProductsFound}>No Products Available</h3>
         )}
       </main>
       <footer className={classes.footer}>

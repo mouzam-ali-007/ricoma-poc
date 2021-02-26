@@ -126,8 +126,6 @@ function Product(productData: Props) {
 
   if (cartArray.length) {
     cartItemsVar(cartArray);
-
-    console.log(cartItemsVar());
   }
 
   return (

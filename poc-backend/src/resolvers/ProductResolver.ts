@@ -49,6 +49,9 @@ export class ProductResolver {
             product.name = data.name;
             product.details = data.details;
             product.quantity = data.quantity;
+            product.image = data.image;
+            product.productColor = data.productColor;
+            product.productSize = data.productSize
 
             await (Product).update(productId, product)
             return product

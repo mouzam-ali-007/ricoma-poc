@@ -1,10 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 
 import { makeStyles, Menu, MenuItem, Toolbar, Tooltip, Badge, withStyles } from "@material-ui/core";
 import { cartItemsVar } from "../../cache";
 import AddToCart from "../AddToCart";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -79,11 +79,6 @@ function DisplayDesktop() {
             </StyledBadge>
           </MenuItem>
         </Tooltip>
-        {/* <Tooltip title='Login'>
-          <MenuItem className={classes.menuItemIcons}>
-            <AccountCircleIcon />
-          </MenuItem>
-        </Tooltip> */}
       </MenuItem>
       <Menu
         id="cart-menu"
