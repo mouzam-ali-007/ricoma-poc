@@ -16,7 +16,6 @@ import clsx from "clsx";
 
 interface Props {
   _id: string;
-
   image: string;
   name: string;
   details: string;
@@ -105,19 +104,20 @@ function Product(productData: Props) {
   const [firstCheckbox, setFirstCheckbox] = React.useState(false);
   const [secondCheckbox, setSecondCheckbox] = React.useState(false);
   const [thirdCheckbox, setThirdCheckbox] = React.useState(false);
+  const [productColor, setProductColor] = useState("");
   const [selected, setSelected] = React.useState([] as any);
 
-  const addToCart = (data: Props) => {
+  const addToCart = (data: any) => {
+    let color = productColor;
+    const itemData = { ...data, color };
     try {
       const cartProducts = cartItemsVar();
       if (cartProducts.length) {
-        console.log("cartProducs", cartProducts);
-
         setCartArray(cartProducts);
       }
 
       setCartArray((prev) => {
-        return [data, ...prev];
+        return [itemData, ...prev];
       });
     } catch (error) {
       console.log(error);
@@ -126,8 +126,6 @@ function Product(productData: Props) {
 
   if (cartArray.length) {
     cartItemsVar(cartArray);
-
-    console.log(cartItemsVar());
   }
 
   return (
@@ -148,7 +146,10 @@ function Product(productData: Props) {
             icon={<span className={clsx(classes.icon, classes.firstCheckbox)}> </span>}
             checked={!!firstCheckbox}
             onChange={(event) => {
+              setProductColor("#81396F");
               setFirstCheckbox(event.target.checked);
+              setSecondCheckbox(false);
+              setThirdCheckbox(false);
             }}
           />
           <Checkbox
@@ -158,7 +159,10 @@ function Product(productData: Props) {
             icon={<span className={clsx(classes.icon, classes.secondCheckbox)}> </span>}
             checked={!!secondCheckbox}
             onChange={(event) => {
+              setProductColor("#F6437D");
+              setFirstCheckbox(false);
               setSecondCheckbox(event.target.checked);
+              setThirdCheckbox(false);
             }}
           />
           <Checkbox
@@ -168,6 +172,9 @@ function Product(productData: Props) {
             icon={<span className={clsx(classes.icon, classes.thirdCheckbox)}> </span>}
             checked={!!thirdCheckbox}
             onChange={(event) => {
+              setProductColor("#143061");
+              setFirstCheckbox(false);
+              setSecondCheckbox(false);
               setThirdCheckbox(event.target.checked);
             }}
           />

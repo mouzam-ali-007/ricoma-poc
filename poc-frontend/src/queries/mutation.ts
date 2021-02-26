@@ -21,6 +21,20 @@ export const loginCompany = gql`
   }
 `
 
+// add Products mutation
+export const addProduct = gql`
+  mutation addProduct($name: String!, $details: String!, $image: String!, $quantity: Float!, $productColor: [String!] , $productSize: [String!] ,  $companyId: String!){
+    addProduct(data:{name: $name, details: $details, image: $image ,quantity: $quantity ,productColor: $productColor, productSize: $productSize, companyId: $companyId}){
+      _id
+      name
+      details
+      image
+      quantity
+      companyId
+    }
+  }
+`
+
 export const fetchProducts = gql`
 query fetchProducts($companyId: String!) {
   fetchProducts(companyId: $companyId) {
