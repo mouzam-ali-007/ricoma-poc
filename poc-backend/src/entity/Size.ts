@@ -14,7 +14,7 @@ export class Size extends BaseEntity {
     size: string;
 
     @Field(() => Product, { nullable: true })
-    @ManyToOne(() => Product, product => product.productSizes, { lazy: true })
+    @ManyToOne(() => Product, product => product.productSize, { lazy: true })
     product: Product;
 
 }

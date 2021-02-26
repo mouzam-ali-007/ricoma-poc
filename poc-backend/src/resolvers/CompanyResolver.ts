@@ -51,7 +51,6 @@ export class CompanyResolver {
     const accessToken = sign({ companyId: company._id }, SECRET_KEY, {
       expiresIn: '1d',
     })
-    console.log(email, password, company, accessToken)
     company.accessToken = accessToken
     return company
 
@@ -71,7 +70,6 @@ export class CompanyResolver {
     data.password = hashedPassword
     const company = Company.create(data)
 
-    console.log(company)
     await company.save()
 
     return company

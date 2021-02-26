@@ -4,7 +4,6 @@ import {
 } from 'typeorm'
 
 import { ObjectType, Field, ID } from 'type-graphql'
-import { EncryptionTransformer } from 'typeorm-encrypted'
 
 @ObjectType()
 @Entity()

@@ -21,7 +21,6 @@ async function runSeedFile() {
 
         const companyData = Company.create(company)
 
-        console.log(company)
         await companyData.save().then(async (data) => {
 
             for (let j = 0; j < PRODUCTS; j++) {
@@ -30,8 +29,8 @@ async function runSeedFile() {
                 product.details = `New Product ${Math.random().toString(36).substring(6)}`;
                 product.image = IMAGE_URL;
                 product.companyId = <any>data._id;
-                product.productColors = Color['#0010']
-                product.productSizes = Size['L']
+                product.productColor = ['#0010']
+                product.productSize = ['L']
 
                 const productData = Product.create(product);
 

@@ -1,6 +1,4 @@
 import { InputType, Field } from 'type-graphql'
-import { Size } from '../entity/Size'
-import { Color } from '../entity/Color'
 
 @InputType()
 export class ProductType {

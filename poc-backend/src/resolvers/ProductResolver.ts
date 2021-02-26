@@ -2,10 +2,6 @@ import { Resolver, Query, Mutation, Arg, UseMiddleware } from 'type-graphql'
 import { ProductType } from '../inputTypes/productType'
 import { Product } from '../entity/Product';
 import { isAuth } from "../authentication/auth";
-const {
-    ApolloServer,
-    ApolloError
-} = require('apollo-server');
 
 @Resolver()
 export class ProductResolver {
@@ -72,6 +68,6 @@ export class ProductResolver {
             await allProduct.delete(productId);
             return product;
         }
-        throw new ApolloError(`Product with id: ${productId} does not exist!`, 'FAILURE', false);
+        throw new Error(`Product with id: ${productId} does not exist!`);
     }
 }

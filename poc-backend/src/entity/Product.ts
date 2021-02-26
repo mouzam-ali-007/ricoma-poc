@@ -3,8 +3,6 @@ import {
     CreateDateColumn, UpdateDateColumn, OneToMany
 } from 'typeorm'
 import { ObjectType, Field, ID } from 'type-graphql'
-import { Size } from './Size'
-import { Color } from './Color'
 
 @ObjectType()
 @Entity()
@@ -31,13 +29,11 @@ export class Product extends BaseEntity {
 
 
     @Field(() => [String])
-    // @OneToMany(() => Size, item => item.product, { lazy: true, cascade: true })
     @Column()
     productSize: string[];
 
     @Field(() => [String])
     @Column()
-    //  @OneToMany(() => Color, item => item.product, { lazy: true, cascade: true })
     productColor: string[];
 
 
